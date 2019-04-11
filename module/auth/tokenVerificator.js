@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken'), // used to create, sign, and verify tokens
-secret = process.env.SECRET; // get our config file
+secret = 'supersecret'; // get our config file
 
 function verifyToken(req, res, next) {
 

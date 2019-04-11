@@ -1,7 +1,7 @@
 const userModel = require(__root + 'module/user/userModel'),
 jwt = require('jsonwebtoken'),
 bcrypt = require('bcryptjs'),
-secret = process.env.SECRET;
+secret = 'supersecret';
 
 const RegisterUser = (req, res) => {
     let hashedPassword = bcrypt.hashSync(req.body.password, 8);
