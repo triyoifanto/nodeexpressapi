@@ -40,9 +40,30 @@ npm i --save swagger-ui-express swagger-jsdoc
 ```
 setup swagger config on the app.js and the documentation for each root by using @swagger syntax
 
-Below are the last result
+Below are the last result https://nodeexpresssample.herokuapp.com
 ![](./Capture1.jpg)
 
 user can invoke the api
 ![](./Capture2.jpg)
+
+
+## setup deployment on heroku
+1. Create heroku account
+2. create new app on heroku
+3. install heroku CLI
+4. push the code to git repo
+5. login to heroku from CLI
+```
+heroku login
+```
+there will be browser popup that require to login to heroku
+6. create heroku git remote
+```
+heroku git:remote -a {herokuAppName}
+```
+7. deploy to heroku
+```
+git push heroku master
+```
+
 
