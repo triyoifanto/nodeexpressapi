@@ -14,7 +14,9 @@
     "heroku": "^7.22.9",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.0",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "swagger-jsdoc": "^3.2.8",
+    "swagger-ui-express": "^4.0.2"
   },
   "engines": {
     "node": "10.x"

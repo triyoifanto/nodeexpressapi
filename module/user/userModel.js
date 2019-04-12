@@ -1,3 +1,24 @@
+/**
+ * @swagger
+ * definitions:
+ *   User:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: integer
+ *       name:
+ *         type: string
+ *       email:
+ *         type: string
+ *       password:
+ *         type: string
+ *         format: password
+ *       required:
+ *         - email
+ *         - username
+ *         - password
+ */
+
 const mongoose = require('mongoose'),
 userSchema = new mongoose.Schema({
     name: { 
