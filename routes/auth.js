@@ -1,13 +1,14 @@
 const express = require('express'),
 router = express.Router(),
-controller = require(__root + 'module/auth/authController');
+controller = require(__root + 'module/auth/authController'),
+userModel = require(__root + 'module/user/userModel');
 
 /**
  * @swagger
  * /auth/register:
  *   post:
  *     tags:
- *       - Users
+ *       - Auth
  *     name: Register
  *     summary: Register a new user
  *     produces:
@@ -18,6 +19,8 @@ controller = require(__root + 'module/auth/authController');
  *       - name: body
  *         in: body
  *         schema:
+ *           $ref: '#/definitions/User'
+ *           type: object
  *           properties:
  *             name:
  *               type: string
@@ -35,8 +38,8 @@ controller = require(__root + 'module/auth/authController');
  *         description: User registered successfully
  *       '401':
  *         description: Bad username, not found in db
- *       '403':
- *         description: Username and password don't match
+ *       '500':
+ *         description: There was an error when registering the user.
  */
 router.post('/register', controller.RegisterUser);
 
@@ -45,7 +48,7 @@ router.post('/register', controller.RegisterUser);
  * /auth/login:
  *   post:
  *     tags:
- *       - Users
+ *       - Auth
  *     name: Login
  *     summary: Logs in a user
  *     produces:
@@ -71,11 +74,57 @@ router.post('/register', controller.RegisterUser);
  *         description: User found and logged in successfully
  *       '401':
  *         description: Bad email, not found in db
- *       '403':
- *         description: email and password don't match
+ *       '500':
+ *         description: Error on the server
  */
 router.post('/login', controller.Login);
+
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     name: Logout
+ *     summary: Logout a user
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters: []
+ *     responses:
+ *       '200':
+ *         description: User logged out successfully
+ */
 router.post('/logout', controller.Logout);
+
+/**
+ * @swagger
+ * /auth/me:
+ *   get:
+ *     tags:
+ *       - Auth
+ *     name: Get Current user based on tha e token
+ *     summary: Get Current user based on tha e token
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: x-access-token
+ *         in: header
+ *         schema:
+ *          type: string
+ *         required: true
+ *     responses:
+ *       '200':
+ *         description: Get User info on token payload successfully * 
+ *       '401':
+ *         description: No token sent.
+ *       '500':
+ *         description: failed to authenticate token * 
+ *     security:
+ */
 router.get('/me', controller.GetUser);
 
 module.exports = router;

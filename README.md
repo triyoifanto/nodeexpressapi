@@ -32,3 +32,17 @@ to include moongose(for mongodb connection), jsonwebtoken(for generate token), b
 ```
 npm start
 ```
+
+## Setup swagger on as API documentation
+install swagger-jsdoc and swagger-ui-express
+```
+npm i --save swagger-ui-express swagger-jsdoc
+```
+setup swagger config on the app.js and the documentation for each root by using @swagger syntax
+
+Below are the last result
+![](./Capture1.jpg)
+
+user can invoke the api
+![](./Capture2.jpg)
+

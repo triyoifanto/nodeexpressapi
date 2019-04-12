@@ -35,7 +35,7 @@ Login = (req, res) => {
         let token = jwt.sign(
             { id: user._id }, 
             secret,
-            { expiresIn: 60 }//expires in 1 minutes
+            { expiresIn: 86400 }//expires in 1 minutes
         );
 
         // return the information including token as JSON
@@ -57,7 +57,7 @@ GetUser = (req, res) => {
     jwt.verify(token, secret, (err, decoded) => {
         if(err) return res.status(500).send({ 
             auth: false,
-            message: 'failed to authenticate token'
+            message: 'failed to authenticate token ' + err.message
         });
 
         res.status(200).send(decoded);

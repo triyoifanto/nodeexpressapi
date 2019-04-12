@@ -6,22 +6,32 @@ var logger = require('morgan');
 var swaggerJSDoc = require('swagger-jsdoc');
 var swaggerUi = require('swagger-ui-express');
 
+// swagger configuration
 const swaggerDefinition = {
     info: {
-      title: 'Node Express Swagger API',
+      title: 'CDC Node Express Swagger API',
       version: '1.0.0',
       description: 'Endpoints to test the API',
     },
     host: 'localhost:4000',
-    basePath: '/api'
+    basePath: '/api',
+    securityDefinitions: {
+        auth: {
+          type: 'apiKey',
+          name: 'x-access-token',
+          in: 'header',
+        },
+      },
+    security: [
+        { auth: [] }
+    ]
   };
   const options = {
     swaggerDefinition,
-    apis: ['./routes/*.js'],
+    apis: ['./routes/*.js', './module/**/*.js'],
   };
-  const swaggerSpec = swaggerJSDoc(options);
-  
-  
+  // swagger doc config
+  const swaggerSpec = swaggerJSDoc(options);  
 
 var dotenv = require('dotenv');
 dotenv.config();
@@ -35,6 +45,7 @@ var authRouter = require('./routes/auth');
 
 var app = express();
 
+// load swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(logger('dev'));
 app.use(express.json());
