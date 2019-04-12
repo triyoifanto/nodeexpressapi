@@ -52,11 +52,10 @@ user can invoke the api
 2. create new app on heroku
 3. install heroku CLI
 4. push the code to git repo
-5. login to heroku from CLI
+5. login to heroku from CLI, run below script and there will be browser popup that require to login to heroku
 ```
 heroku login
 ```
-there will be browser popup that require to login to heroku
 6. create heroku git remote
 ```
 heroku git:remote -a {herokuAppName}
@@ -65,5 +64,7 @@ heroku git:remote -a {herokuAppName}
 ```
 git push heroku master
 ```
+![](./Capture3.jpg)
 
+![](./Capture4.jpg)
 
