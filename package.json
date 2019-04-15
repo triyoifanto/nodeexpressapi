@@ -20,5 +20,8 @@
   },
   "engines": {
     "node": "10.x"
+  },
+  "devDependencies": {
+    "cucumber": "^5.1.0"
   }
 }
