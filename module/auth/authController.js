@@ -1,8 +1,9 @@
-const userModel = require(__root + 'module/user/userModel'),
+const mongoose = require('mongoose'),
+userModel = mongoose.model('User'),
 jwt = require('jsonwebtoken'),
 bcrypt = require('bcryptjs'),
-secret = 'supersecret';
-
+config = require(__root + 'config');
+//userModel = require(__root + 'module/user/userModel')
 const RegisterUser = (req, res) => {
     let hashedPassword = bcrypt.hashSync(req.body.password, 8);
     req.body.password = hashedPassword;
@@ -13,8 +14,10 @@ const RegisterUser = (req, res) => {
         // if user is registered without errors
         // create a token
         let token = jwt.sign(
-            { id: user._id }, // payload
-            secret,
+            { 
+                id: user._id,
+                email: user.email
+            }, // payload            config.secret,
             { expiresIn: 86400 }//expires in 24 hours
         );
         res.status(200).send({auth: true, token: token });
@@ -34,7 +37,7 @@ Login = (req, res) => {
         // create a token
         let token = jwt.sign(
             { id: user._id }, 
-            secret,
+            config.secret,
             { expiresIn: 86400 }//expires in 1 minutes
         );
 
@@ -54,7 +57,7 @@ GetUser = (req, res) => {
         message: 'Failed to authenticate token.'
     });
 
-    jwt.verify(token, secret, (err, decoded) => {
+    jwt.verify(token, config.secret, (err, decoded) => {
         if(err) return res.status(500).send({ 
             auth: false,
             message: 'failed to authenticate token ' + err.message

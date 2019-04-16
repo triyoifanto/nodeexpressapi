@@ -6,6 +6,10 @@ var logger = require('morgan');
 var swaggerJSDoc = require('swagger-jsdoc');
 var swaggerUi = require('swagger-ui-express');
 
+var dotenv = require('dotenv');
+dotenv.config();
+var config = require('./config');
+
 // swagger configuration
 const swaggerDefinition = {
     info: {
@@ -13,7 +17,7 @@ const swaggerDefinition = {
       version: '1.0.0',
       description: 'Endpoints to test the API',
     },
-    host: 'localhost:4000',
+    host: 'localhost:' + config.port,
     basePath: '/api',
     securityDefinitions: {
         auth: {
@@ -32,9 +36,6 @@ const swaggerDefinition = {
   };
   // swagger doc config
   const swaggerSpec = swaggerJSDoc(options);  
-
-var dotenv = require('dotenv');
-dotenv.config();
 
 global.__root   = __dirname + '/'; 
 var db = require('./db');
